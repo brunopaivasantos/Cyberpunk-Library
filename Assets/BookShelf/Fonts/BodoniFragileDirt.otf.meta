@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: cd1f3813a1681eb40a744f0fe7fe998b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bodoni Fragile
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: baad2d5603b999f45856cd559a9457a5, type: 3}
+  - {fileID: 12800000, guid: 4402a8bb169f9ec4f98aab7ba52c622b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
