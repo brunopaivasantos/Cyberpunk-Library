@@ -32,8 +32,8 @@ public class VictoryMenu : MonoBehaviour
 
     void SetMenu()
     {
-        booksXpInfo.text = "Books Sorted ---------- " + 0 + "XP";
-        timeXpInfo.text = "Time Bonus ---------- " + 0 + "XP";
+        booksXpInfo.text = "Books Sorted __________ " + 0 + "XP";
+        timeXpInfo.text = "Time Bonus __________ " + 0 + "XP";
         timeXp = startTimeXp - UI.GetTime();
         if (timeXp < 2)
             timeXp = 2;
@@ -82,7 +82,7 @@ public class VictoryMenu : MonoBehaviour
 
             yield return new WaitForSeconds(xpSpeed);
 
-            booksXpInfo.text = "Books Sorted ---------- " + xp + "XP";
+            booksXpInfo.text = "Books Sorted __________ " + xp + "XP";
         }
 
         Vector3 size = booksXpInfo.transform.localScale;
@@ -103,7 +103,7 @@ public class VictoryMenu : MonoBehaviour
 
             yield return new WaitForSeconds(xpSpeed * .2f);
 
-            timeXpInfo.text = "timeBonus ---------- " + xp + "XP";
+            timeXpInfo.text = "Time Bonus __________ " + xp + "XP";
         }
 
         size = timeXpInfo.transform.localScale;

@@ -14,12 +14,14 @@ public class UI : MonoBehaviour
     static float time = 0;
     Shelf manager;
     static bool startGame;
-    float timeToCheck = .5f;
+    float clockTime;
+    bool clockwise;
     void Awake()
     {
         Instance = this;
         manager = Shelf.Instance;
         startGame = false;
+        clockwise = true;
     }
 
     public void SetObjective(string objectiveText)
@@ -36,12 +38,14 @@ public class UI : MonoBehaviour
     {
         if (!startGame) return;
         time += Time.deltaTime;
-        timeToCheck +=Time.deltaTime;
-        //if(timeToCheck > .5f)
-        //{
-        //    timeToCheck = 0;
-        //    Shelf.Instance.CheckVictory();
-        //}
+        clockTime +=Time.deltaTime;
+        clock.fillAmount = clockwise ? clockTime / 10 : 1 - clockTime / 10;
+        if (clockTime >= 10f)
+        {
+            clockwise = !clockwise;
+            clockTime = 0;
+            clock.fillClockwise = clockwise;
+        }
         UpdateClock();
     }
 
