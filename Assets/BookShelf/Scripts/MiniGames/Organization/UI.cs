@@ -32,7 +32,7 @@ public class UI : MonoBehaviour
 
     public void SetLevel()
     {
-        level.text = "Level "+Statistics.currentLevel.ToString().PadLeft(2, '0');
+        level.text = "LEVEL "+Statistics.currentLevel.ToString().PadLeft(2, '0');
     }
     void Update()
     {

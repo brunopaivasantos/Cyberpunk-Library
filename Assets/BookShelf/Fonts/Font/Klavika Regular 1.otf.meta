@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: e475a120de7431c4a9eff8f9ba0bf529
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Klavika
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 22183cfd836c1854888eebb40963cf3c, type: 3}
+  - {fileID: 12800000, guid: 241043abc4ea988419da3e5310e2b26a, type: 3}
+  - {fileID: 12800000, guid: d14af07e13c956548a47ca95210c2a37, type: 3}
+  - {fileID: 12800000, guid: 757901e674b828e48996de70de2e0c19, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

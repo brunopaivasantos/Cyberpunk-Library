@@ -43,7 +43,7 @@ public class VictoryMenu : MonoBehaviour
         int level = Statistics.currentLevel;
         currentLevel.text = Statistics.currentLevel.ToString().PadLeft(2, '0');
         nextLevel.text = (level+1).ToString().PadLeft(2, '0');
-        levelInfo.text = "Level " + Statistics.currentLevel.ToString().PadLeft(2, '0');
+        levelInfo.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');
     }
     public void ShowMenu()
     {
@@ -174,7 +174,7 @@ public class VictoryMenu : MonoBehaviour
         int level = Statistics.currentLevel;
         currentLevel.text = Statistics.currentLevel.ToString().PadLeft(2, '0');
         nextLevel.text = (level+1).ToString().PadLeft(2, '0');
-        levelInfo.text = "Level " + Statistics.currentLevel.ToString().PadLeft(2, '0');
+        levelInfo.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');
         return GetMinStripePercentage();
     }
 

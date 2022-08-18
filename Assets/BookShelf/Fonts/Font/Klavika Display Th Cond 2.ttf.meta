@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 026acb562019ee449b22f2fd5f690844
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Klavika Display Th Cond
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a0286ad8a22f66e4c8a686354770c28b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5ade326fe337806429ea0ea6838c0131
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Klavika Display Extra Lt
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f0958e3b79962be4897ca64f934b0cf6, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
