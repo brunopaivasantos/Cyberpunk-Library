@@ -18,7 +18,14 @@ public class VictoryMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelInfo;
 
     int timeXp;
+    bool animating;
     Coroutine coroutine;
+
+    float minPercentage;
+    float maxPercentage;
+
+
+    int totalXpEarned;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,18 +39,23 @@ public class VictoryMenu : MonoBehaviour
 
     void SetMenu()
     {
+
         booksXpInfo.text = "Books Sorted __________ " + 0 + "XP";
         timeXpInfo.text = "Time Bonus __________ " + 0 + "XP";
         timeXp = startTimeXp - UI.GetTime();
         if (timeXp < 2)
             timeXp = 2;
 
-        float minPercentage = GetMinStripePercentage();
+        minPercentage = GetMinStripePercentage();
         levelStripe.localScale = new Vector3(minPercentage, levelStripe.localScale.y, levelStripe.localScale.z);
         int level = Statistics.currentLevel;
         currentLevel.text = Statistics.currentLevel.ToString().PadLeft(2, '0');
-        nextLevel.text = (level+1).ToString().PadLeft(2, '0');
+        nextLevel.text = (level + 1).ToString().PadLeft(2, '0');
         levelInfo.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');
+
+        totalXpEarned = timeXp + booksXp;
+        maxPercentage = GetMaxStripePercentage();
+
     }
     public void ShowMenu()
     {
@@ -51,6 +63,19 @@ public class VictoryMenu : MonoBehaviour
         anim.SetTrigger("Open");
     }
 
+    public void SetMenuCompleted()
+    {
+        GameManager.Instance.SetLevelFromXP();
+        booksXpInfo.text = "Books Sorted __________ " + booksXp + "XP";
+        timeXpInfo.text = "Time Bonus __________ " + timeXp + "XP";
+        float minPercentage = GetMinStripePercentage();
+        levelStripe.localScale = new Vector3(minPercentage, levelStripe.localScale.y, levelStripe.localScale.z);
+        int level = Statistics.currentLevel;
+        currentLevel.text = Statistics.currentLevel.ToString().PadLeft(2, '0');
+        nextLevel.text = (level + 1).ToString().PadLeft(2, '0');
+        levelInfo.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');
+
+    }
     public void StartMenuAnimation()
     {
         if (coroutine != null)
@@ -63,6 +88,16 @@ public class VictoryMenu : MonoBehaviour
 
     public void StartNewGame()
     {
+        if(animating)
+        {
+            animating = false;
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+            SetMenuCompleted();
+            return;
+        }
         Shelf.Instance.SetGame();
     }
 
@@ -72,15 +107,16 @@ public class VictoryMenu : MonoBehaviour
     }
     IEnumerator MenuAnimation()
     {
-
+        animating = true;
         //Book XP
+        float factor = 0;
         int xp = 0;
-        while (xp < booksXp)
+        while (factor <= 1)
         {
+            factor += xpSpeed * Time.deltaTime;
+            xp = (int)(factor * booksXp);
 
-            xp++;
-
-            yield return new WaitForSeconds(xpSpeed);
+            yield return null;//new WaitForSeconds(xpSpeed);
 
             booksXpInfo.text = "Books Sorted __________ " + xp + "XP";
         }
@@ -94,14 +130,16 @@ public class VictoryMenu : MonoBehaviour
 
 
         //Time Bonus XP
+        factor = 0;
         xp = 0;
 
-        while (xp < timeXp)
+        while (factor <= 1)
         {
+            factor += xpSpeed * Time.deltaTime;
 
-            xp++;
+            xp = (int)(factor * timeXp);
 
-            yield return new WaitForSeconds(xpSpeed * .2f);
+            yield return null;// new WaitForSeconds(xpSpeed * .2f);
 
             timeXpInfo.text = "Time Bonus __________ " + xp + "XP";
         }
@@ -113,12 +151,12 @@ public class VictoryMenu : MonoBehaviour
 
 
         //LevelAnimation;
-        float minPercentage = GetMinStripePercentage();
+
         float xpPercentage = minPercentage;
-        float maxPercentage = GetMaxStripePercentage();
+
         Vector3 startStripeSize = new Vector3(minPercentage, levelStripe.localScale.y, levelStripe.localScale.z);
         Vector3 finalStripeSize = new Vector3(maxPercentage, levelStripe.localScale.y, levelStripe.localScale.z);
-        float factor = 0;
+        factor = 0;
         while (factor < 1)
         {
             factor += stripeSpeed * Time.deltaTime;
@@ -130,13 +168,14 @@ public class VictoryMenu : MonoBehaviour
                 float newXp = UpdateLevel();
                 startStripeSize = new Vector3(0, levelStripe.localScale.y, levelStripe.localScale.z);
                 finalStripeSize = new Vector3(newXp, levelStripe.localScale.y, levelStripe.localScale.z);
-                
+
 
             }
             yield return null;
         }
 
         Statistics.Save();
+        animating = false;
     }
 
     float GetMinStripePercentage()
@@ -173,7 +212,7 @@ public class VictoryMenu : MonoBehaviour
         Statistics.currentLevel++;
         int level = Statistics.currentLevel;
         currentLevel.text = Statistics.currentLevel.ToString().PadLeft(2, '0');
-        nextLevel.text = (level+1).ToString().PadLeft(2, '0');
+        nextLevel.text = (level + 1).ToString().PadLeft(2, '0');
         levelInfo.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');
         return GetMinStripePercentage();
     }
@@ -185,7 +224,7 @@ public class VictoryMenu : MonoBehaviour
         int maxXp = xpInterval.Item2;
 
         float total = maxXp - minXp;
-        int newXp = Statistics.xp -minXp;
+        int newXp = Statistics.xp - minXp;
         Statistics.xp = newXp;
 
         float p = (newXp - minXp) / total;

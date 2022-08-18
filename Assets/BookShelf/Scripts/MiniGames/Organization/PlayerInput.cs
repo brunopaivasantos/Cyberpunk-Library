@@ -121,7 +121,11 @@ public class PlayerInput : MonoBehaviour
         if (book != null)
             book.SetHands(false);
         Transform slot = Utils.TouchSlot(position);
-        if (slot == null && book != null) book.Return();
+        if (slot == null && book != null) 
+        {
+            book.Return();
+            Shelf.Instance.CheckVictory();
+        }
         if (book == null || slot == null) return;
 
         Shelf.Instance.ChangeLine(currentSlot.GetComponent<Slot>(), book, true);

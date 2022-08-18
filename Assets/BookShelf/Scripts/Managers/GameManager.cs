@@ -29,7 +29,9 @@ public class GameManager : Singleton<GameManager>
         int levelIndex = level - 1;
         if(levelIndex >= xpToNextLevel.Count)
         {
-            return (0, 250);
+            int lastIndex = xpToNextLevel.Count - 1;
+            xpToNextLevel.Add(xpToNextLevel[lastIndex] + 250);
+            return (xpToNextLevel[lastIndex], xpToNextLevel[lastIndex + 1]);
         }
         if (levelIndex == 0)
             return (0, xpToNextLevel[levelIndex]);
@@ -46,5 +48,19 @@ public class GameManager : Singleton<GameManager>
             index = Random.Range(15, gameModes.Count);
         }
         return gameModes[index];
+    }
+
+    public void SetLevelFromXP()
+    {
+        (int, int) interval = GetXpInterval();
+       
+        int maxXp = interval.Item2;
+
+        if (Statistics.xp >= maxXp)
+        {
+            Statistics.currentLevel++;
+            SetLevelFromXP();
+        }
+        else return;
     }
 }

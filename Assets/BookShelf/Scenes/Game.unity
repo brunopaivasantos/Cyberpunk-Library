@@ -4960,7 +4960,7 @@ MonoBehaviour:
   booksXp: 25
   levelStripe: {fileID: 2116907034}
   stripeSpeed: 1
-  xpSpeed: 0.02
+  xpSpeed: 1
   currentLevel: {fileID: 1014217730}
   nextLevel: {fileID: 1985558409}
   levelInfo: {fileID: 928086712}

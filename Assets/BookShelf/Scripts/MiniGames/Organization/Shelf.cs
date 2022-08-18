@@ -199,9 +199,9 @@ public class Shelf : MonoBehaviour
         if (gameMode.gameMode == Enums.GameMode.color) return;
 
 
-        if (gameMode.idQuantity == (gameMode.maxId + 1) - gameMode.minId)
+        if (gameMode.idQuantity == (gameMode.maxId) - gameMode.minId)
         {
-            for (int i = gameMode.minId; i <= gameMode.maxId; i++)
+            for (int i = gameMode.minId; i < gameMode.maxId; i++)
             {
                 ids.Add(i);
             }
