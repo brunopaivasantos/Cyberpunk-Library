@@ -32,13 +32,13 @@ public class UI : MonoBehaviour
 
     public void SetLevel()
     {
-        level.text = "LEVEL "+Statistics.currentLevel.ToString().PadLeft(2, '0');
+        level.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');
     }
     void Update()
     {
         if (!startGame) return;
         time += Time.deltaTime;
-        clockTime +=Time.deltaTime;
+        clockTime += Time.deltaTime;
         clock.fillAmount = clockwise ? clockTime / 10 : 1 - clockTime / 10;
         if (clockTime >= 10f)
         {
@@ -55,7 +55,7 @@ public class UI : MonoBehaviour
         startGame = true;
     }
 
-    public static  void StopGame()
+    public static void StopGame()
     {
         startGame = false;
     }
@@ -79,5 +79,9 @@ public class UI : MonoBehaviour
         return (int)time;
     }
 
-
+    public void PlayClick()
+    {
+        if (!GameManager.soundMuted)
+            this.GetComponent<AudioSource>().Play();
+    }
 }

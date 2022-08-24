@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        this.GetComponent<AudioSource>().Play();
         startButton.SetActive(false);
         introScene.Play();
         introScene.stopped += Game;

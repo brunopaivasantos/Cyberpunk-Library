@@ -7,6 +7,27 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] List<int> xpToNextLevel = new List<int>();
     [SerializeField] List<GameMode> gameModes = new List<GameMode>();
+    public static bool soundMuted = false;
+
+    [SerializeField] List<AudioSource> bgms = new List<AudioSource>();
+    [SerializeField] int bgmIndex;
+
+    private void Start()
+    {
+        soundMuted = Statistics.IsSoundMuted();
+        if (!soundMuted)
+            PlayBGM();
+    }
+
+    void PlayBGM()
+    {
+        bgms[bgmIndex].Play();
+    }
+
+    public void MuteBGM(bool isMuted)
+    {
+        bgms[bgmIndex].mute = isMuted;
+    }
 
     public static void StartGame()
     {

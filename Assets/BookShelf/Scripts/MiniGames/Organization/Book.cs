@@ -74,6 +74,7 @@ public class Book : MonoBehaviour
 
     public void SendDust()
     {
+        Shelf.Instance.PlayRandomSound();
         dust = Instantiate(particles, this.transform.position, Quaternion.identity);
         dust.startColor = dustColor;
 

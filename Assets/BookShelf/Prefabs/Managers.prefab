@@ -77,6 +77,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b9b2e7bf8149ff4ca5da6996134ed0c, type: 2}
   - {fileID: 11400000, guid: ad68ee1fe89177943bebfe85152a9958, type: 2}
   - {fileID: 11400000, guid: 9e2b1e55f4de06849a585dff976920ec, type: 2}
+  bgms:
+  - {fileID: 0}
+  - {fileID: 0}
+  bgmIndex: 0
 --- !u!114 &2389517520021508232
 MonoBehaviour:
   m_ObjectHideFlags: 0

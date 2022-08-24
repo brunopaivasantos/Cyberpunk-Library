@@ -14,6 +14,11 @@ public class Shelf : MonoBehaviour
     [SerializeField] UI ui;
 
     [SerializeField] VictoryMenu victory;
+
+    [SerializeField] List<AudioClip> bookAudioClips = new List<AudioClip>();
+
+    [SerializeField] AudioSource victoryAudio;
+    [SerializeField] AudioSource introAudio;
     List<Sprite> gameColors = new List<Sprite>();
 
     List<Slot> slots = new List<Slot>();
@@ -161,6 +166,8 @@ public class Shelf : MonoBehaviour
             bottomFirstSlot.SetPreviousSlot(lastMiddleSlot);
         }
 
+        if (!GameManager.soundMuted)
+            introAudio.Play();
         UI.StartGame();
         gameOver = false;
         if (!fromTitleScreen)
@@ -324,6 +331,8 @@ public class Shelf : MonoBehaviour
     }
     void EndGame()
     {
+        if (!GameManager.soundMuted)
+            victoryAudio.Play();
         UI.StopGame();
         victory.ShowMenu();
     }
@@ -396,4 +405,11 @@ public class Shelf : MonoBehaviour
         slots.Add(slot);
     }
 
+    public void PlayRandomSound()
+    {
+        if (GameManager.soundMuted) return;
+        int index = Random.Range(0, bookAudioClips.Count);
+        this.GetComponent<AudioSource>().clip = bookAudioClips[index];
+        this.GetComponent<AudioSource>().Play();
+    }
 }

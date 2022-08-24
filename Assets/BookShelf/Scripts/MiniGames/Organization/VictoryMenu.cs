@@ -16,6 +16,8 @@ public class VictoryMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentLevel;
     [SerializeField] TextMeshProUGUI nextLevel;
     [SerializeField] TextMeshProUGUI levelInfo;
+    [SerializeField] AudioSource levelStripeAudioSource;
+    [SerializeField] AudioSource xpTextAudioSource;
 
     int timeXp;
     bool animating;
@@ -88,7 +90,8 @@ public class VictoryMenu : MonoBehaviour
 
     public void StartNewGame()
     {
-        if(animating)
+        UI.Instance.PlayClick();
+        if (animating)
         {
             animating = false;
             if (coroutine != null)
@@ -115,7 +118,8 @@ public class VictoryMenu : MonoBehaviour
         {
             factor += xpSpeed * Time.deltaTime;
             xp = (int)(factor * booksXp);
-
+            if (!GameManager.soundMuted)
+                xpTextAudioSource.Play();
             yield return null;//new WaitForSeconds(xpSpeed);
 
             booksXpInfo.text = "Books Sorted __________ " + xp + "XP";
@@ -138,7 +142,8 @@ public class VictoryMenu : MonoBehaviour
             factor += xpSpeed * Time.deltaTime;
 
             xp = (int)(factor * timeXp);
-
+            if (!GameManager.soundMuted)
+                xpTextAudioSource.Play();
             yield return null;// new WaitForSeconds(xpSpeed * .2f);
 
             timeXpInfo.text = "Time Bonus __________ " + xp + "XP";
@@ -159,6 +164,8 @@ public class VictoryMenu : MonoBehaviour
         factor = 0;
         while (factor < 1)
         {
+            if (!GameManager.soundMuted)
+                levelStripeAudioSource.Play();
             factor += stripeSpeed * Time.deltaTime;
             levelStripe.localScale = Vector3.Lerp(startStripeSize, finalStripeSize, factor);
 

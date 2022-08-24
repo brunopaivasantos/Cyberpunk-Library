@@ -18,6 +18,9 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundMuted = GameManager.soundMuted;
+        muteImage.SetActive(!soundMuted);
+        unmuteImage.SetActive(soundMuted);
         anim = this.GetComponent<Animator>();
     }
 
@@ -54,12 +57,16 @@ public class PauseMenu : MonoBehaviour
     public void ToggleSound()
     {
         soundMuted = !soundMuted;
-        muteImage.SetActive(soundMuted);
-        unmuteImage.SetActive(!soundMuted);
+        muteImage.SetActive(!soundMuted);
+        unmuteImage.SetActive(soundMuted);
+        GameManager.soundMuted = soundMuted;
+        GameManager.Instance.MuteBGM(soundMuted);
+        Statistics.SaveSound(soundMuted);
     }
 
     public void SetPause()
     {
+        UI.Instance.PlayClick();
         if (isPaused)
         {
             Continue();
@@ -73,6 +80,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Continue()
     {
+        UI.Instance.PlayClick();
         isPaused = false;
         Time.timeScale = 1;
         anim.SetTrigger("Close");
@@ -80,7 +88,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Home()
     {
-
+        UI.Instance.PlayClick();
         Time.timeScale = 1;
         GameManager.Instance.MainMenu();
     }

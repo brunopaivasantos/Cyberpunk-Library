@@ -34,4 +34,15 @@ public class Statistics : Singleton<Statistics>
         PlayerPrefs.SetInt("xp", xp);
     }
 
+    public static bool IsSoundMuted()
+    {
+        return PlayerPrefs.GetInt("sound", 0) == 1;
+    }
+
+    public static void SaveSound(bool muted)
+    {
+        int save = muted ? 1 : 0;
+        PlayerPrefs.SetInt("sound", save);
+    }
+
 }
