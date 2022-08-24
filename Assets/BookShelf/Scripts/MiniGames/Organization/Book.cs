@@ -11,6 +11,9 @@ public class Book : MonoBehaviour
     [SerializeField] List<Color> textColors = new List<Color>();
     [SerializeField] TextMeshProUGUI info;
     [SerializeField] TextMeshProUGUI romanInfo;
+    [SerializeField] ParticleSystem particles;
+    Color dustColor;
+    ParticleSystem dust;
     int id;
     Vector3 size;
     Shelf shelf;
@@ -50,6 +53,7 @@ public class Book : MonoBehaviour
         onHands = isOnHands;
         if (isOnHands)
         {
+            SendDust();
             this.GetComponent<SpriteRenderer>().sortingLayerName = "Hands";
             info.transform.parent.GetComponent<Canvas>().sortingLayerName = "Hands";
             transform.localScale = size * 1.3f;
@@ -68,6 +72,13 @@ public class Book : MonoBehaviour
 
     }
 
+    public void SendDust()
+    {
+        dust = Instantiate(particles, this.transform.position, Quaternion.identity);
+        dust.startColor = dustColor;
+
+        Destroy(dust.gameObject, 1.3f);
+    }
     public void Return()
     {
         currentSlot.SetNewBook(true, this, true);
@@ -129,7 +140,7 @@ public class Book : MonoBehaviour
                 transform.position = end;
 
 
-
+                SendDust();
                 transform.localScale = size;
                 this.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 info.transform.parent.GetComponent<Canvas>().sortingOrder = 2;
@@ -186,6 +197,8 @@ public class Book : MonoBehaviour
     public void SetTextColor(int n)
     {
         info.color = textColors[n];
+        dustColor = info.color;
+        this.GetComponent<TrailRenderer>().startColor = info.color;
     }
 }
 

@@ -129,6 +129,7 @@ public class PlayerInput : MonoBehaviour
         if (book == null || slot == null) return;
 
         Shelf.Instance.ChangeLine(currentSlot.GetComponent<Slot>(), book, true);
+        this.book.SendDust();
         this.book = null;
         //  slot.GetComponent<Slot>().SetNewBook();
         //book.SetNewSlot(slot.GetComponent<Slot>());
