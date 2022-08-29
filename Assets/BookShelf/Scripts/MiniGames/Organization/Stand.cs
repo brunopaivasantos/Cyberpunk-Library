@@ -9,7 +9,7 @@ public class Stand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        Debug.Log("Start" + this.name+ firstSlot.GetComponent<Collider2D>().bounds.extents.x);
     }
 
     // Update is called once per frame
@@ -37,13 +37,22 @@ public class Stand : MonoBehaviour
         int slotsQuantity = (int)(shelfWidth / bookWidth);
         Vector3 nextPos = firstSlot.transform.position + Vector3.right * bookWidth;
         slots.Add(firstSlot);
-        Shelf.Instance.AddSlot(firstSlot);
 
+        Debug.Log("NotStart" + this.name + firstSlot.GetComponent<Collider2D>().bounds.extents.x);
+        Shelf.Instance.AddSlot(firstSlot);
+        bool redColor = false;
+        Color c = Color.green;
         slots[0].SetNewBook();
         for (int i = 1; i<= slotsQuantity; i++)
         {
             Slot s = Instantiate(firstSlot, nextPos, Quaternion.identity, this.transform);
             nextPos = s.transform.position + Vector3.right * bookWidth;
+            Debug.DrawLine(s.transform.position, nextPos, c, 50f);
+            redColor = !redColor;
+
+
+            c = redColor ? Color.red : Color.green;
+            
             s.SetNewBook();
             slots.Add(s);
             s.SetPreviousSlot(slots[i - 1]);

@@ -101,6 +101,7 @@ public class Shelf : MonoBehaviour
         colorIndex = 0;
         SetIdCollection();
 
+        middleShelf.gameObject.SetActive(false);
         topShelf.gameObject.SetActive(false);
         bottomShelf.gameObject.SetActive(false);
 
@@ -109,6 +110,9 @@ public class Shelf : MonoBehaviour
             topShelf.gameObject.SetActive(true);
             topShelf.SetBooks(fromTitleScreen);
         }
+
+
+        middleShelf.gameObject.SetActive(true);
         middleShelf.SetBooks(fromTitleScreen);
 
 

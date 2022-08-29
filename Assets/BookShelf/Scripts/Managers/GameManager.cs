@@ -9,11 +9,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] List<GameMode> gameModes = new List<GameMode>();
     public static bool soundMuted = false;
 
-    [SerializeField] List<AudioSource> bgms = new List<AudioSource>();
+    [SerializeField] List<AudioClip> bgms = new List<AudioClip>();
     [SerializeField] int bgmIndex;
-
+    AudioSource bgmAudioSource;
     private void Start()
     {
+        bgmAudioSource = this.GetComponent<AudioSource>();
         soundMuted = Statistics.IsSoundMuted();
         if (!soundMuted)
             PlayBGM();
@@ -21,12 +22,13 @@ public class GameManager : Singleton<GameManager>
 
     void PlayBGM()
     {
-        bgms[bgmIndex].Play();
+        bgmAudioSource.clip = bgms[bgmIndex];
+        bgmAudioSource.Play();
     }
 
     public void MuteBGM(bool isMuted)
     {
-        bgms[bgmIndex].mute = isMuted;
+        bgmAudioSource.mute = isMuted;
     }
 
     public static void StartGame()
