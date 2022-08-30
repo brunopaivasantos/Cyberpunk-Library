@@ -147,6 +147,12 @@ public class Shelf : MonoBehaviour
         Debug.Log("Last Index =" + slotLastIndex + "    new Index = " + newIndex);
         slot.SetNewBook(toRight, book, definitive);
         slotLastIndex = newIndex;
+
+        if (definitive)
+        {
+            book.SetHands(false);
+            PlayerInput.occupied = false;
+        }
     }
 
     void SetSlots(bool fromTitleScreen = false)

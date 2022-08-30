@@ -14,7 +14,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        this.GetComponent<AudioSource>().Play();
+        if (!GameManager.soundMuted)
+            this.GetComponent<AudioSource>().Play();
         startButton.SetActive(false);
         introScene.Play();
         introScene.stopped += Game;
@@ -27,6 +28,6 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.StartGame();
     }
-   
- 
+
+
 }

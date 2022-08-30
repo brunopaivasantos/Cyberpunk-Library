@@ -27,9 +27,12 @@ public class PlayerInput : MonoBehaviour
     private float time;
     private Transform currentSlot;
     public static Action<float> SwipeForce;
+
+    public static bool occupied;
     private void Awake()
     {
         inputManager = InputManager.Instance;
+        occupied = false;
     }
 
     private void OnEnable()
@@ -84,6 +87,7 @@ public class PlayerInput : MonoBehaviour
     }
     private void StartTouch(Vector2 position, float time)
     {
+        if (occupied) return;
         startPosition = position;
         startTime = time;
         touching = true;
@@ -118,17 +122,21 @@ public class PlayerInput : MonoBehaviour
         endPosition = position;
         endTime = time;
         touching = false;
-        if (book != null)
-            book.SetHands(false);
+        if (book == null) return;
+        //if (book != null)
+        //        book.SetHands(false);
         Transform slot = Utils.TouchSlot(position);
-        if (slot == null && book != null) 
+        if (slot == null)
         {
             book.Return();
+            book.SetHands(false);
             Shelf.Instance.CheckVictory();
-        }
-        if (book == null || slot == null) return;
 
-        Shelf.Instance.ChangeLine(currentSlot.GetComponent<Slot>(), book, true);
+            return;
+        }
+        //if (book == null || slot == null) return;
+
+        Shelf.Instance.ChangeLine(slot.GetComponent<Slot>(), book, true);
         this.book.SendDust();
         this.book = null;
         //  slot.GetComponent<Slot>().SetNewBook();

@@ -53,6 +53,7 @@ public class Book : MonoBehaviour
         onHands = isOnHands;
         if (isOnHands)
         {
+            PlayerInput.occupied = true;
             SendDust();
             this.GetComponent<SpriteRenderer>().sortingLayerName = "Hands";
             info.transform.parent.GetComponent<Canvas>().sortingLayerName = "Hands";
@@ -82,6 +83,7 @@ public class Book : MonoBehaviour
     }
     public void Return()
     {
+        PlayerInput.occupied = true;
         currentSlot.SetNewBook(true, this, true);
         StartCoroutine(GoingToSlot(currentSlot));
     }
@@ -153,6 +155,7 @@ public class Book : MonoBehaviour
         }
 
         currentSlot = slot;
+        PlayerInput.occupied = false;
         // slot.SetBook(this);
     }
 

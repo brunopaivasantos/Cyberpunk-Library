@@ -16,8 +16,9 @@ public class GameManager : Singleton<GameManager>
     {
         bgmAudioSource = this.GetComponent<AudioSource>();
         soundMuted = Statistics.IsSoundMuted();
-        if (!soundMuted)
-            PlayBGM();
+        MuteBGM(soundMuted);
+
+        PlayBGM();
     }
 
     void PlayBGM()
@@ -35,7 +36,7 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.LoadScene("Game");
     }
- 
+
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -47,10 +48,10 @@ public class GameManager : Singleton<GameManager>
     /// <returns>how much xp was necessary to get in the currentLevel and the xp necessary to the next level</returns>
     public (int, int) GetXpInterval()
     {
-       
+
         int level = Statistics.currentLevel;
         int levelIndex = level - 1;
-        if(levelIndex >= xpToNextLevel.Count)
+        if (levelIndex >= xpToNextLevel.Count)
         {
             int lastIndex = xpToNextLevel.Count - 1;
             xpToNextLevel.Add(xpToNextLevel[lastIndex] + 250);
@@ -76,7 +77,7 @@ public class GameManager : Singleton<GameManager>
     public void SetLevelFromXP()
     {
         (int, int) interval = GetXpInterval();
-       
+
         int maxXp = interval.Item2;
 
         if (Statistics.xp >= maxXp)
