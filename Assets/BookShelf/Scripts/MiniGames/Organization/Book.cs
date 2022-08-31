@@ -84,7 +84,7 @@ public class Book : MonoBehaviour
     public void Return()
     {
         PlayerInput.occupied = true;
-        currentSlot.SetNewBook(true, this, true);
+        currentSlot.SetNewBook(true, this, true, currentSlot);
         StartCoroutine(GoingToSlot(currentSlot));
     }
     public void GoToSlot(Slot slot)

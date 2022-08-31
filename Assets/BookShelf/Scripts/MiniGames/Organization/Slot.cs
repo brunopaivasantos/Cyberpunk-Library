@@ -43,7 +43,7 @@ public class Slot : MonoBehaviour
         return currentBook;
     }
 
-    public void SetNewBook(bool toRight, Book newBook, bool definitive)
+    public void SetNewBook(bool toRight, Book newBook, bool definitive, Slot lastSlot)
     {
         if (currentBook == newBook) return;
         Book oldBook = currentBook;
@@ -55,15 +55,20 @@ public class Slot : MonoBehaviour
             currentBook = newBook;
             currentBook.transform.position = this.transform.position;
         }
-           
 
-        if (oldBook == null) return;
+
+        if (this.Equals(lastSlot))//oldBook == null)
+        {
+           
+            return;
+        }
+
 
         Slot neighboorSlot = toRight ? nextSlot : previousSlot;
 
         if (neighboorSlot == null) return;
 
-        neighboorSlot.SetNewBook(toRight, oldBook, true);
+        neighboorSlot.SetNewBook(toRight, oldBook, true, lastSlot);
 
     }
 

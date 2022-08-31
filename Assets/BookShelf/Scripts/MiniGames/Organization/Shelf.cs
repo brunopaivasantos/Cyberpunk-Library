@@ -144,8 +144,8 @@ public class Shelf : MonoBehaviour
 
         int newIndex = slots.IndexOf(slot);
         bool toRight = slotLastIndex > newIndex;
-        Debug.Log("Last Index =" + slotLastIndex + "    new Index = " + newIndex);
-        slot.SetNewBook(toRight, book, definitive);
+        Slot lastSlot = slots[slotLastIndex];
+        slot.SetNewBook(toRight, book, definitive, lastSlot);
         slotLastIndex = newIndex;
 
         if (definitive)

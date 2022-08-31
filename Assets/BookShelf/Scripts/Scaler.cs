@@ -10,7 +10,6 @@ public class Scaler : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log(this.name + " setou scale");
         if (background)
             SetScale();
         else
@@ -43,7 +42,6 @@ public class Scaler : MonoBehaviour
 
         if (Screen.width == 720)
         {
-            Debug.Log("widht = 720");
             height -= .4f; 
 
         }
