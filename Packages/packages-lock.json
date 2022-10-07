@@ -1,5 +1,31 @@
 {
   "dependencies": {
+    "com.lionstudios.release.lionanalytics": {
+      "version": "2.4.32",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.lionstudios.release.lionkitcore": "2.4.17",
+        "com.lionstudios.release.lionsdkservice": "2.4.7"
+      },
+      "url": "http://packages.lionstudios.cc:4873"
+    },
+    "com.lionstudios.release.lionkitcore": {
+      "version": "2.4.17",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "url": "http://packages.lionstudios.cc:4873"
+    },
+    "com.lionstudios.release.lionsdkservice": {
+      "version": "2.4.7",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "http://packages.lionstudios.cc:4873"
+    },
     "com.unity.2d.animation": {
       "version": "7.0.5",
       "depth": 1,

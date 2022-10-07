@@ -77,7 +77,9 @@ public class Book : MonoBehaviour
     {
         Shelf.Instance.PlayRandomSound();
         dust = Instantiate(particles, this.transform.position, Quaternion.identity);
-        dust.startColor = dustColor;
+        ParticleSystem.MainModule main = dust.main;
+        main.startColor = dustColor;
+        //dust.startColor = dustColor;
 
         Destroy(dust.gameObject, 1.3f);
     }

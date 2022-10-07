@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
+using LionStudios.Suite.Analytics;
 
+using LionStudios.Suite.Debugging;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] List<int> xpToNextLevel = new List<int>();
@@ -12,8 +15,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] List<AudioClip> bgms = new List<AudioClip>();
     [SerializeField] int bgmIndex;
     AudioSource bgmAudioSource;
+   
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         bgmAudioSource = this.GetComponent<AudioSource>();
         soundMuted = Statistics.IsSoundMuted();
         MuteBGM(soundMuted);
@@ -21,6 +26,15 @@ public class GameManager : Singleton<GameManager>
         PlayBGM();
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LionDebugger.Hide();
+    }
     void PlayBGM()
     {
         bgmAudioSource.clip = bgms[bgmIndex];
@@ -34,6 +48,7 @@ public class GameManager : Singleton<GameManager>
 
     public static void StartGame()
     {
+        LionAnalytics.GameStart();
         SceneManager.LoadScene("Game");
     }
 
@@ -87,4 +102,26 @@ public class GameManager : Singleton<GameManager>
         }
         else return;
     }
+
+
+    public void LevelStart(int level, int attemptNum)
+    {
+        LionAnalytics.LevelStart(level, attemptNum);
+    }
+
+    public void LevelComplete(int level, int attemptNum, int ? score = null)
+    {
+        LionAnalytics.LevelComplete(level, attemptNum, score);
+    }
+
+    public void SetPlayerLevel(int playerLevel)
+    {
+        LionAnalytics.SetPlayerLevel(playerLevel);
+    }
+  
+    public void SetPlayerXP(int playerXp)
+    {
+        LionAnalytics.SetPlayerXP(playerXp);
+    }
+
 }

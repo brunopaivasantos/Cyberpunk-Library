@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BookShelf/Scenes/LaunchScene.unity
+    guid: d2bf4b790a93e7549a193752cecc0989
+  - enabled: 1
     path: Assets/BookShelf/Scenes/MainMenu.unity
     guid: 44fe2bd06a2050145b2c693168cea3c0
   - enabled: 1

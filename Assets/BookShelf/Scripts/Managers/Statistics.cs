@@ -9,7 +9,7 @@ public class Statistics : Singleton<Statistics>
     public static int currentLevel;
     public static int xp;
 
-    private void Awake()
+    public override void Awake()
     {
         
         if (resetSavings)

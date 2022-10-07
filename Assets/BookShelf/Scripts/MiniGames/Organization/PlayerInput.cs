@@ -8,8 +8,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float minimumDistance = .2f;
     [SerializeField] private float maximumTime = 1f;
     [SerializeField, Range(0f, 1f)] private float directionThreshold = .9f;
-    [SerializeField, Range(0f, 1f)] private float intervalThreshold = .2f;
-    [SerializeField, Range(0f, 1f)] private float distanceThreshold = .1f;
+   // [SerializeField, Range(0f, 1f)] private float intervalThreshold = .2f;
+    //[SerializeField, Range(0f, 1f)] private float distanceThreshold = .1f;
 
     // [SerializeField] private GameObject trail;
 
