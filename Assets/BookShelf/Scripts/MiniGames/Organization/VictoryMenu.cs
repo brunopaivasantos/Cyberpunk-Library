@@ -101,6 +101,8 @@ public class VictoryMenu : MonoBehaviour
             SetMenuCompleted();
             return;
         }
+
+        GameManager.Instance.LevelComplete(Statistics.currentLevel, 1, totalXpEarned);
         Shelf.Instance.SetGame();
     }
 
@@ -207,6 +209,7 @@ public class VictoryMenu : MonoBehaviour
 
         float total = maxXp - minXp;
         int newXp = Statistics.xp + booksXp + timeXp;
+        GameManager.Instance.SetPlayerXP(newXp);
         Statistics.xp = newXp;
 
         float p = (newXp - minXp) / total;
@@ -217,7 +220,9 @@ public class VictoryMenu : MonoBehaviour
     float UpdateLevel()
     {
         Statistics.currentLevel++;
+
         int level = Statistics.currentLevel;
+        GameManager.Instance.SetPlayerLevel(level);
         currentLevel.text = Statistics.currentLevel.ToString().PadLeft(2, '0');
         nextLevel.text = (level + 1).ToString().PadLeft(2, '0');
         levelInfo.text = "LEVEL " + Statistics.currentLevel.ToString().PadLeft(2, '0');

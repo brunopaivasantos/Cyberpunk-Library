@@ -1,3 +1,5 @@
+using Google.Play.Review;
+using LionStudios.Suite.Analytics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +14,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] List<AudioClip> bgms = new List<AudioClip>();
     [SerializeField] int bgmIndex;
     AudioSource bgmAudioSource;
+    ReviewManager _reviewManager;
+    bool reviewed;
     private void Start()
     {
+        reviewed = PlayerPrefs.GetInt("reviewed", 0) == 1;
+        _reviewManager = new ReviewManager();
         bgmAudioSource = this.GetComponent<AudioSource>();
         soundMuted = Statistics.IsSoundMuted();
         MuteBGM(soundMuted);
@@ -86,5 +92,59 @@ public class GameManager : Singleton<GameManager>
             SetLevelFromXP();
         }
         else return;
+    }
+
+    public void LevelStart(int level, int attemptNum)
+    {
+        LionAnalytics.LevelStart(level, attemptNum);
+    }
+
+    public void LevelComplete(int level, int attemptNum, int? score = null)
+    {
+        LionAnalytics.LevelComplete(level, attemptNum, score);
+    }
+
+    public void SetPlayerLevel(int playerLevel)
+    {
+        if(playerLevel == 5 && !reviewed)
+        {
+            Review();
+        }
+        LionAnalytics.SetPlayerLevel(playerLevel);
+    }
+
+    public void SetPlayerXP(int playerXp)
+    {
+        LionAnalytics.SetPlayerXP(playerXp);
+    }
+
+    public void Review()
+    {
+        PlayerPrefs.SetInt("reviewed", 1);
+        StartCoroutine(Reviewing());
+    }
+
+    IEnumerator Reviewing()
+    {
+        var requestFlowOperation = _reviewManager.RequestReviewFlow();
+        yield return requestFlowOperation;
+        if (requestFlowOperation.Error != ReviewErrorCode.NoError)
+        {
+            // Log error. For example, using requestFlowOperation.Error.ToString().
+            yield break;
+        }
+        var _playReviewInfo = requestFlowOperation.GetResult();
+
+        var launchFlowOperation = _reviewManager.LaunchReviewFlow(_playReviewInfo);
+        yield return launchFlowOperation;
+        _playReviewInfo = null; // Reset the object
+        if (launchFlowOperation.Error != ReviewErrorCode.NoError)
+        {
+            // Log error. For example, using requestFlowOperation.Error.ToString().
+            yield break;
+        }
+        // The flow has finished. The API does not indicate whether the user
+        // reviewed or not, or even whether the review dialog was shown. Thus, no
+        // matter the result, we continue our app flow.
     }
 }

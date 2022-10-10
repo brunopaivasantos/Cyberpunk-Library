@@ -125,6 +125,7 @@ public class Shelf : MonoBehaviour
         }
 
         SetSlots(fromTitleScreen);
+        GameManager.Instance.LevelStart(Statistics.currentLevel, 1); //LionAttemptNumber
     }
     // Start is called before the first frame update
     void Start()
